@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Column from "../components/Column";
 import axios from "axios";
 import { DragDropContext } from "react-beautiful-dnd";
-import { useSocket } from "../context/SocketContext";
+import { useSocket } from "../content/SocketContext";
 import TaskModal from "../components/TaskModal";
 const statusTypes = ["Todo", "In Progress", "Done"];
 
