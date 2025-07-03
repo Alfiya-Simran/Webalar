@@ -1,3 +1,5 @@
+import React from "react";
+
 import { useEffect, useState } from "react";
 import Column from "../components/Column";
 import axios from "axios";
