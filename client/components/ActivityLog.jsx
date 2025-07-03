@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useSocket } from "../context/SocketContext";
+import { useSocket } from "../content/SocketContext";
 
 export default function ActivityLog() {
   const [logs, setLogs] = useState([]);
