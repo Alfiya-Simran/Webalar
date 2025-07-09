@@ -53,14 +53,6 @@ export const deleteTask = async (req, res) => {
   res.json({ msg: "Deleted" });
 };
 
-export const getLogs = async (req, res) => {
-  const logs = await ActionLog.find()
-    .sort({ timestamp: -1 })
-    .limit(20)
-    .populate("performedBy", "name");
-  res.json(logs);
-};
-
 export const smartAssignTask = async (req, res) => {
   try {
     const tasks = await Task.find({
@@ -89,11 +81,12 @@ export const smartAssignTask = async (req, res) => {
 
     if (!bestUser) return res.status(404).json({ msg: "No users found" });
 
+    // ✅ populate assignedTo so frontend gets name
     const task = await Task.findByIdAndUpdate(
       req.params.id,
       { assignedTo: bestUser._id },
       { new: true }
-    );
+    ).populate("assignedTo", "name email");
 
     await ActionLog.create({
       taskId: task._id,
@@ -106,3 +99,4 @@ export const smartAssignTask = async (req, res) => {
     res.status(500).json({ msg: err.message });
   }
 };
+
