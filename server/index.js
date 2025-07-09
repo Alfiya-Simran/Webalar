@@ -31,9 +31,11 @@ app.use("/api/tasks", taskRoutes);
 setupSocket(io);
 
 // Start server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
+
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
-    server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+    server.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
   })
-  .catch(err => console.error(err));
+  .catch(err => console.error("❌ DB connection failed:", err));
+
