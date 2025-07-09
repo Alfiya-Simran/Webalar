@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import styles from "./Login.module.css"; // ✅ Import the CSS module
 import { login as loginAPI } from "../services/auth";
 import { useAuth } from "../content/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom"; // <-- Link added
+import styles from "./Login.module.css"; // Assuming you use CSS Modules
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -46,9 +46,14 @@ export default function Login() {
           Login
         </button>
       </form>
-    <p>
-  Don't have an account? <Link to="/register">Register here</Link>
-</p>
-<div/>
+
+      {/* 🔗 Register Link */}
+      <p style={{ marginTop: "1rem", textAlign: "center" }}>
+        Don't have an account?{" "}
+        <Link to="/register" style={{ color: "#4f46e5", textDecoration: "underline" }}>
+          Register here
+        </Link>
+      </p>
+    </div>
   );
 }
