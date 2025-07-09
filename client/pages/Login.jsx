@@ -50,7 +50,7 @@ export default function Login() {
       {/* 🔗 Register Link */}
       <p style={{ marginTop: "1rem", textAlign: "center" }}>
         Don't have an account?{" "}
-        <Link to="/register" style={{ color: "#4f46e5", textDecoration: "underline" }}>
+        <Link to="/Register" style={{ color: "#4f46e5", textDecoration: "underline" }}>
           Register here
         </Link>
       </p>
