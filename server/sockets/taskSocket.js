@@ -1,4 +1,4 @@
-module.exports = (io) => {
+const setupSocket = (io) => {
   io.on("connection", (socket) => {
     console.log("🟢 A user connected");
 
@@ -19,3 +19,5 @@ module.exports = (io) => {
     });
   });
 };
+
+export default setupSocket;
