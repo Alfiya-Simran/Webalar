@@ -21,31 +21,12 @@ export default function Register() {
   };
 
   return (
-    <div style={{ padding: "2rem" }}>
+    <div>
       <h2>Register</h2>
       <form onSubmit={handleSubmit}>
-        <input
-          name="name"
-          placeholder="Name"
-          onChange={handleChange}
-          required
-        />
-        <br />
-        <input
-          name="email"
-          placeholder="Email"
-          onChange={handleChange}
-          required
-        />
-        <br />
-        <input
-          name="password"
-          placeholder="Password"
-          type="password"
-          onChange={handleChange}
-          required
-        />
-        <br />
+        <input name="name" placeholder="Name" onChange={handleChange} required />
+        <input name="email" placeholder="Email" onChange={handleChange} required />
+        <input name="password" placeholder="Password" type="password" onChange={handleChange} required />
         <button type="submit">Register</button>
       </form>
     </div>
