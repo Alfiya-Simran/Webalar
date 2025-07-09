@@ -13,32 +13,43 @@ dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
+
+// ✅ Setup Socket.IO with CORS for frontend
 const io = new Server(server, {
   cors: {
-    origin: process.env.CLIENT_URL,
-    methods: ["GET", "POST"]
+    origin: process.env.CLIENT_URL, // e.g., https://webalar-iota.vercel.app
+    methods: ["GET", "POST"],
+    credentials: true
   }
 });
 
-app.use(cors());
+// ✅ Express CORS config (very important!)
+app.use(cors({
+  origin: process.env.CLIENT_URL,
+  credentials: true
+}));
+
 app.use(express.json());
+
+// ✅ Optional root check
 app.get("/", (req, res) => {
   res.send("✅ Webalar backend is running!");
 });
 
-// Routes
+// ✅ REST API Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/tasks", taskRoutes);
 
-// Sockets
+// ✅ WebSocket handlers
 setupSocket(io);
 
-// Start server
+// ✅ Connect DB and start server
 const PORT = process.env.PORT;
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
-    server.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
+    server.listen(PORT, () =>
+      console.log(`✅ Server running on port ${PORT}`)
+    );
   })
   .catch(err => console.error("❌ DB connection failed:", err));
-
