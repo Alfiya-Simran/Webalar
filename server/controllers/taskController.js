@@ -1,12 +1,13 @@
-const Task = require("../models/Task");
-const ActionLog = require("../models/ActionLog");
+import Task from "../models/Task.js";
+import ActionLog from "../models/ActionLog.js";
+import User from "../models/User.js";
 
-exports.getTasks = async (req, res) => {
+export const getTasks = async (req, res) => {
   const tasks = await Task.find().populate("assignedTo", "name email");
   res.json(tasks);
 };
 
-exports.createTask = async (req, res) => {
+export const createTask = async (req, res) => {
   const task = await Task.create(req.body);
   await ActionLog.create({
     taskId: task._id,
@@ -16,13 +17,12 @@ exports.createTask = async (req, res) => {
   res.status(201).json(task);
 };
 
-exports.updateTask = async (req, res) => {
+export const updateTask = async (req, res) => {
   const { updatedAt } = req.body;
 
   const task = await Task.findById(req.params.id);
   if (!task) return res.status(404).json({ msg: "Task not found" });
 
-  // Conflict check
   if (updatedAt && new Date(updatedAt) < task.updatedAt) {
     return res.status(409).json({
       msg: "Conflict detected",
@@ -30,7 +30,6 @@ exports.updateTask = async (req, res) => {
     });
   }
 
-  // Safe update
   const updated = await Task.findByIdAndUpdate(req.params.id, req.body, {
     new: true
   });
@@ -44,8 +43,7 @@ exports.updateTask = async (req, res) => {
   res.json(updated);
 };
 
-
-exports.deleteTask = async (req, res) => {
+export const deleteTask = async (req, res) => {
   const task = await Task.findByIdAndDelete(req.params.id);
   await ActionLog.create({
     taskId: task._id,
@@ -55,13 +53,15 @@ exports.deleteTask = async (req, res) => {
   res.json({ msg: "Deleted" });
 };
 
-exports.getLogs = async (req, res) => {
-  const logs = await ActionLog.find().sort({ timestamp: -1 }).limit(20).populate("performedBy", "name");
+export const getLogs = async (req, res) => {
+  const logs = await ActionLog.find()
+    .sort({ timestamp: -1 })
+    .limit(20)
+    .populate("performedBy", "name");
   res.json(logs);
 };
-const User = require("../models/User");
 
-exports.smartAssignTask = async (req, res) => {
+export const smartAssignTask = async (req, res) => {
   try {
     const tasks = await Task.find({
       status: { $in: ["Todo", "In Progress"] },
