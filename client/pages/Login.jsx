@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { login as loginAPI } from "../services/auth";
 import { useAuth } from "../content/AuthContext";
@@ -32,6 +32,7 @@ export default function Login() {
         <input name="password" placeholder="Password" type="password" onChange={handleChange} required />
         <button type="submit">Login</button>
       </form>
-    </div>
+    <p>Don't have an account? <Link to="/register">Register here</Link></p>
+</div>
   );
 }
