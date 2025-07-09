@@ -1,31 +1,34 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Board from "./pages/Board";
-import { AuthProvider } from "./content/AuthContext";
-import { SocketProvider } from "./content/SocketContext";
-import ProtectedRoute from "./components/ProtectedRoute";
+import { useState } from "react";
+import { register } from "../services/auth";
+import { useNavigate } from "react-router-dom";
 
-function App() {
+export default function Register() {
+  const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const navigate = useNavigate();
+
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await register(form);
+      alert("Registered! Now login.");
+      navigate("/");
+    } catch (err) {
+      alert(err.response?.data?.msg || "Registration failed");
+    }
+  };
+
   return (
-    <AuthProvider>
-      <SocketProvider>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route
-            path="/board"
-            element={
-              <ProtectedRoute>
-                <Board />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
-      </SocketProvider>
-    </AuthProvider>
+    <div>
+      <h2>Register</h2>
+      <form onSubmit={handleSubmit}>
+        <input name="name" placeholder="Name" onChange={handleChange} required />
+        <input name="email" placeholder="Email" onChange={handleChange} required />
+        <input name="password" placeholder="Password" type="password" onChange={handleChange} required />
+        <button type="submit">Register</button>
+      </form>
+    </div>
   );
 }
-
-export default App;
