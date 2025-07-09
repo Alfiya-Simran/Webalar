@@ -46,6 +46,9 @@ export default function Login() {
           Login
         </button>
       </form>
-    </div>
+    <p>
+  Don't have an account? <Link to="/register">Register here</Link>
+</p>
+
   );
 }
