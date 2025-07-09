@@ -21,15 +21,32 @@ export default function Register() {
     }
   };
 
-  return (
-    <div>
+ return (
+  <div className={styles.container}>
+    <form className={styles.formBox} onSubmit={handleSubmit}>
       <h2>Register</h2>
-      <form onSubmit={handleSubmit}>
-        <input name="name" placeholder="Name" onChange={handleChange} required />
-        <input name="email" placeholder="Email" onChange={handleChange} required />
-        <input name="password" placeholder="Password" type="password" onChange={handleChange} required />
-        <button type="submit">Register</button>
-      </form>
-    </div>
-  );
+      <input
+        name="name"
+        placeholder="Name"
+        onChange={handleChange}
+        required
+      />
+      <input
+        name="email"
+        placeholder="Email"
+        onChange={handleChange}
+        required
+      />
+      <input
+        name="password"
+        type="password"
+        placeholder="Password"
+        onChange={handleChange}
+        required
+      />
+      <button type="submit">Register</button>
+    </form>
+  </div>
+);
+
 }
