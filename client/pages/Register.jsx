@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import { register } from "../services/auth";
 import { useNavigate } from "react-router-dom";
