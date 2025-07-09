@@ -15,7 +15,7 @@ export default function Board() {
   const refresh = () => fetchTasks();
   const fetchTasks = async () => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/tasks`, {
+      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/tasks`, {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
