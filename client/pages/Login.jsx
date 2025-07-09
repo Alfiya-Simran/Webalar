@@ -1,6 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import React, { useState } from "react";
+import styles from "./Login.module.css"; // ✅ Import the CSS module
 import { login as loginAPI } from "../services/auth";
 import { useAuth } from "../content/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -25,14 +24,28 @@ export default function Login() {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
-        <input name="email" placeholder="Email" onChange={handleChange} required />
-        <input name="password" placeholder="Password" type="password" onChange={handleChange} required />
-        <button type="submit">Login</button>
+        <input
+          className={styles.input}
+          name="email"
+          placeholder="Email"
+          onChange={handleChange}
+          required
+        />
+        <input
+          className={styles.input}
+          name="password"
+          placeholder="Password"
+          type="password"
+          onChange={handleChange}
+          required
+        />
+        <button className={styles.button} type="submit">
+          Login
+        </button>
       </form>
-    <p>Don't have an account? <Link to="/register">Register here</Link></p>
-</div>
+    </div>
   );
 }
